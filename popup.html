@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Iframe Viewer</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<style type="text/css"></style>
+
+<body>
+    <h1>Iframes</h1>
+    <table id="iframe-table">
+        <thead>
+            <tr>
+                <th>Source Domain</th>
+                <th>Open</th>
+            </tr>
+        </thead>
+        <tbody id="iframe-table-body"></tbody>
+    </table>
+    <div id="loading" class="message">Loading...</div>
+    <div id="default" class="message">No iframes</div>
+    <div id="error" class="message">Fail to retrieve iframes</div>
+</body>
+<script src="popup.js"></script>
+
+</html>

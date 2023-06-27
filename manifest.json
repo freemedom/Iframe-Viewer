@@ -1,0 +1,29 @@
+{
+   "action": {
+      "default_icon": "icon-32.png",
+      "default_popup": "popup.html",
+      "default_title": "no iframes"
+   },
+   "background": {
+      "service_worker": "background.js"
+   },
+   "content_scripts": [ {
+      "all_frames": false,
+      "js": [ "content.js" ],
+      "matches": [ "\u003Call_urls>" ],
+      "run_at": "document_idle"
+   } ],
+   "description": "List all iframe links in a web page.",
+   "host_permissions": [ "\u003Call_urls>" ],
+   "icons": {
+      "128": "icon-128.png",
+      "16": "icon-16.png",
+      "32": "icon-32.png",
+      "48": "icon-48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnr8cn2bEw8wJSeTRfQz8vHjiDtShAA26aHHZGiBRvq4F8y94pH3AlcoZBxmHKiXOo2pO4QfAlP7aYlPwon+pKgpP74mLy+Xl2fcq8DSOK5rDlIMMJVhrLvC7SeWTPbIC4kCZWuTu/Qx1UW/EBpPLR9j8KuYDhD/rxQChgphS397jsLxv53+laWaw9RneYNzTsVApuu6xczfnUt4eM4CNfcdWYla7t4+1wNvrOFQCrTd37YTlDeU9J6+elxFDv11IsCcsnwav9jHOXx1Cj1hGioMPiTYEGHJbe+1l98hUoLALdV7JpLfJ/Ap+qZWTMCT5EW73kdB73s+b6KAvMW7I+QIDAQAB",
+   "manifest_version": 3,
+   "name": "Iframe Viewer",
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0"
+}

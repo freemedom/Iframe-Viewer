@@ -1,0 +1,84 @@
+@import "https://fonts.googleapis.com/css?family=Roboto";
+
+body {
+    background-color: white;
+    color: black;
+    overflow-x: hidden;
+    font-family: Roboto;
+    font-size: 14px;
+    max-width: 400px;
+}
+
+h1 {
+    margin: 2px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+table {
+    display: none;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    overflow-x: hidden;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: black;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+}
+
+th {
+    padding: 6px 24px 6px 24px;
+}
+
+td {
+    padding: 6px 24px 6px 24px;
+    text-align: left;
+    border: none;
+    min-width: 20px;
+    max-width: 200px;
+    inline-size: 200px;
+    overflow-wrap: break-word;
+    color: black;
+    background-color: antiquewhite;
+}
+
+button {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    height: 36px;
+    width: 36px;
+}
+
+button:hover {
+    box-shadow: black 0px 0px 5px;
+}
+
+#loading {
+    display: block;
+    background-color: gray;
+}
+
+#default {
+    display: none;
+    background-color: navy;
+}
+
+#error {
+    display: none;
+    background-color: red;
+}
+
+.message {
+    width: 200px;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+}
