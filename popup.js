@@ -24,7 +24,10 @@ function handleIframes(iframeData) {
         const button2 = document.createElement("button");
         button2.innerHTML = "dynamic content retention";
         button2.onclick = () => {
-            var urlToOpen = chrome.extension.getURL('temp_translate.html');
+            chrome.storage.local.set({
+                "url": iframeUrl
+            })
+            var urlToOpen = chrome.runtime.getURL('temp_translate.html');
             chrome.tabs.create({
                 url: urlToOpen
             });
@@ -65,6 +68,9 @@ window.addEventListener("DOMContentLoaded", () => {
             chrome.tabs.sendMessage(tab.id, { from: "popup", }, handleIframesSafe);
         });
     });
+    chrome.storage.local.set({
+        "html_storage": undefined
+    })
 });
 
 //用消息传递必须得打开着popup才能接收
