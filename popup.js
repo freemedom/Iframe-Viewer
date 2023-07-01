@@ -1,14 +1,21 @@
 var html_data = {}
 
+//得延时一段时间，sendMessage刚返回来消息只代表第一个存储上了
+function handle_new_time() {
+    setTimeout(() => {
+        handle_new()
+    }, 3000);
+}
+
 function handle_new() {
     document.getElementById("loading").style.display = "none";
     const iframeTableBody = document.getElementById("iframe-table-body");
 
     var map1;
-    chrome.storage.local.get(["html_storage"]).then((result) => {
+    chrome.storage.local.get(null).then((result) => {
         // debugger
         
-        if (result.html_storage != undefined) {
+        if (result.html_storage != undefined && result.html_storage != 0) {
             map1 = new Map(JSON.parse(result.html_storage));
         } else {
             map1 = new Map();
@@ -123,12 +130,13 @@ function handleIframesSafe(iframeData) {
 window.addEventListener("DOMContentLoaded", () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         tabs.forEach((tab) => {
-            chrome.tabs.sendMessage(tab.id, { from: "popup", }, handle_new);
+            chrome.tabs.sendMessage(tab.id, { from: "popup", }, handle_new_time);
         });
     });
-    chrome.storage.local.set({
-        "html_storage": undefined
-    })
+    // chrome.storage.local.set({
+    //     "html_storage": 0//undefined不行
+    // })
+    chrome.storage.local.clear();
 });
 
 //用消息传递必须得打开着popup才能接收
