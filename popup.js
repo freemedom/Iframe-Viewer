@@ -1,5 +1,63 @@
 var html_data = {}
 
+function handle_new() {
+    document.getElementById("loading").style.display = "none";
+    const iframeTableBody = document.getElementById("iframe-table-body");
+
+    var map1;
+    chrome.storage.local.get(["html_storage"]).then((result) => {
+        // debugger
+        
+        if (result.html_storage != undefined) {
+            map1 = new Map(JSON.parse(result.html_storage));
+        } else {
+            map1 = new Map();
+        }
+
+        // let keys = Object.keys(map1);//不行
+        let keys = Array.from(map1.keys());
+        console.log(keys);
+        keys.forEach(iframeUrl => {
+            const row = iframeTableBody.insertRow(-1);  // append to the last row
+            const domain = row.insertCell(0);
+            const open = row.insertCell(1);
+
+            const button = document.createElement("button");
+            button.className = "material-icons";
+            button.innerHTML = "open_in_new";
+            button.title = iframeUrl;
+            button.onclick = () => {
+                window.open(iframeUrl, "_blank").focus();
+            }
+    
+            const button2 = document.createElement("button");
+            button2.innerHTML = "dynamic content retention";
+            button2.onclick = () => {
+                chrome.storage.local.set({
+                    "url": iframeUrl
+                })
+                var urlToOpen = chrome.runtime.getURL('temp_translate.html');
+                chrome.tabs.create({
+                    url: urlToOpen
+                });
+            }
+
+            domain.innerHTML = iframeUrl;
+            domain.className += "domain";
+            open.appendChild(button);
+            open.appendChild(button2);
+        })
+
+        if (keys.length > 0) {
+            document.getElementById("iframe-table").style.display = "block";
+        } else {
+            document.getElementById("iframe-table").style.display = "none";
+            document.getElementById("default").style.display = "block";
+        }
+    });
+
+}
+
 function handleIframes(iframeData) {
     document.getElementById("loading").style.display = "none";
 
@@ -65,7 +123,7 @@ function handleIframesSafe(iframeData) {
 window.addEventListener("DOMContentLoaded", () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         tabs.forEach((tab) => {
-            chrome.tabs.sendMessage(tab.id, { from: "popup", }, handleIframesSafe);
+            chrome.tabs.sendMessage(tab.id, { from: "popup", }, handle_new);
         });
     });
     chrome.storage.local.set({
