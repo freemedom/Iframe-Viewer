@@ -32,33 +32,28 @@ else{
 
 function update_storage() {
     var map1;
-    // try {
 
-    // } catch (error) {
+    // chrome.storage.local.get(["html_storage"]).then((result) => {
+    //     // debugger
+    //     // console.log("Value currently is " + result.html_storage);
+    //     if (result.html_storage != undefined && result.html_storage != 0) {
+    //         map1 = new Map(JSON.parse(result.html_storage));
+    //     } else {
+    //         map1 = new Map();
+    //     }
+    //     map1.set(location.href, document.documentElement.outerHTML);
+    //     console.log(location.href)
+    //     //多个内容脚本同时设置，会覆盖
+    //     chrome.storage.local.set({
+    //         "html_storage": JSON.stringify(Array.from(map1.entries()))
+    //     })
+    //     console.log(JSON.stringify(Array.from(map1.entries())))
+    // });
+    // //then里面的函数是异步执行，慢
 
-    // }
-
-    chrome.storage.local.get(["html_storage"]).then((result) => {
-        // debugger
-        // console.log("Value currently is " + result.html_storage);
-        if (result.html_storage != undefined && result.html_storage != 0) {
-            map1 = new Map(JSON.parse(result.html_storage));
-        } else {
-            map1 = new Map();
-        }
-        map1.set(location.href, document.documentElement.outerHTML);
-        console.log(location.href)
-        //多个内容脚本同时设置，会覆盖
-        chrome.storage.local.set({
-            "html_storage": JSON.stringify(Array.from(map1.entries()))
-        })
-        console.log(JSON.stringify(Array.from(map1.entries())))
-    });
-    //then里面的函数是异步执行，慢
-    
-
-    // var map1 = new Map();
-    // map1.set(location.href, 1);
+    chrome.storage.local.set({
+        [location.href] : document.documentElement.outerHTML
+    })
 
     // chrome.runtime.sendMessage({
     //     url_send: location.href,

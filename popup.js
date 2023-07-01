@@ -13,16 +13,18 @@ function handle_new() {
 
     var map1;
     chrome.storage.local.get(null).then((result) => {
-        // debugger
+        debugger
+       
         
-        if (result.html_storage != undefined && result.html_storage != 0) {
-            map1 = new Map(JSON.parse(result.html_storage));
-        } else {
-            map1 = new Map();
-        }
+        // if (result.html_storage != undefined && result.html_storage != 0) {
+        //     map1 = new Map(JSON.parse(result.html_storage));
+        // } else {
+        //     map1 = new Map();
+        // }
 
         // let keys = Object.keys(map1);//不行
-        let keys = Array.from(map1.keys());
+        // let keys = Array.from(map1.keys());
+        let keys = Object.keys(result)
         console.log(keys);
         keys.forEach(iframeUrl => {
             const row = iframeTableBody.insertRow(-1);  // append to the last row

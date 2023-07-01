@@ -8,13 +8,17 @@
       "service_worker": "background.js"
    },
    "content_scripts": [ {
-      "all_frames": false,
+      "all_frames": true,
       "js": [ "content.js" ],
       "matches": [ "\u003Call_urls>" ],
       "run_at": "document_idle"
    } ],
    "description": "List all iframe links in a web page.",
    "host_permissions": [ "\u003Call_urls>" ],
+   "permissions": [
+      "storage",
+      "unlimitedStorage"
+    ],
    "icons": {
       "128": "icon-128.png",
       "16": "icon-16.png",
