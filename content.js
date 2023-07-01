@@ -39,20 +39,21 @@ function update_storage() {
     // }
 
     chrome.storage.local.get(["html_storage"]).then((result) => {
-        debugger
+        // debugger
         // console.log("Value currently is " + result.html_storage);
-        if (result.html_storage != undefined) {
+        if (result.html_storage != undefined && result.html_storage != 0) {
             map1 = new Map(JSON.parse(result.html_storage));
         } else {
             map1 = new Map();
         }
         map1.set(location.href, document.documentElement.outerHTML);
+        console.log(location.href)
         chrome.storage.local.set({
             "html_storage": JSON.stringify(Array.from(map1.entries()))
         })
     });
     //then里面的函数是异步执行，慢
-    console.log(1)
+    
 
     // var map1 = new Map();
     // map1.set(location.href, 1);
