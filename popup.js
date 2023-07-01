@@ -1,3 +1,5 @@
+var html_data = {}
+
 function handleIframes(iframeData) {
     document.getElementById("loading").style.display = "none";
 
@@ -9,7 +11,8 @@ function handleIframes(iframeData) {
         const domain = row.insertCell(0);
         const open = row.insertCell(1);
 
-        const iframeHost = new URL(iframeUrl).hostname;
+        // const iframeHost = new URL(iframeUrl).hostname;
+        const iframeHost = iframeUrl
         const button = document.createElement("button");
         button.className = "material-icons";
         button.innerHTML = "open_in_new";
@@ -18,9 +21,19 @@ function handleIframes(iframeData) {
             window.open(iframeUrl, "_blank").focus();
         }
 
+        const button2 = document.createElement("button");
+        button2.innerHTML = "dynamic content retention";
+        button2.onclick = () => {
+            var urlToOpen = chrome.extension.getURL('temp_translate.html');
+            chrome.tabs.create({
+                url: urlToOpen
+            });
+        }
+
         domain.innerHTML = iframeHost;
         domain.className += "domain";
         open.appendChild(button);
+        open.appendChild(button2);
     });
     if (iframeUrls.length > 0) {
         document.getElementById("iframe-table").style.display = "block";
@@ -53,3 +66,15 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+//用消息传递必须得打开着popup才能接收
+// chrome.runtime.onMessage.addListener(
+//     function (request, sender, sendResponse) {
+//         console.log(sender.tab ?
+//             "from a content script:" + sender.tab.url :
+//             "from the extension");
+//         if (request.greeting == "hello")
+//             sendResponse({
+//                 farewell: "goodbye"
+//             });
+//     });
