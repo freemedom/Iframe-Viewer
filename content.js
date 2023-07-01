@@ -48,9 +48,11 @@ function update_storage() {
         }
         map1.set(location.href, document.documentElement.outerHTML);
         console.log(location.href)
+        //多个内容脚本同时设置，会覆盖
         chrome.storage.local.set({
             "html_storage": JSON.stringify(Array.from(map1.entries()))
         })
+        console.log(JSON.stringify(Array.from(map1.entries())))
     });
     //then里面的函数是异步执行，慢
     
