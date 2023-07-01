@@ -1,25 +1,34 @@
 // console.log(1)
 // debugger
+if (self == top) {
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        switch (request.from) {
+            case "popup":
+                var iframes = Array.prototype.slice.call(document.getElementsByTagName("iframe"));
+                var frames = Array.prototype.slice.call(document.getElementsByTagName("frame"));
+                iframes = iframes.concat(frames)
+    
+                //src跟加载后的href还不一样
+                const iframeUrls = iframes.map(iframe => iframe?.src)
+                    .filter(url => url != null && url != "about:blank");
+                sendResponse({ iframeUrls: iframeUrls });
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    switch (request.from) {
-        case "popup":
-            var iframes = Array.prototype.slice.call(document.getElementsByTagName("iframe"));
-            var frames = Array.prototype.slice.call(document.getElementsByTagName("frame"));
-            iframes = iframes.concat(frames)
-
-            const iframeUrls = iframes.map(iframe => iframe?.src)
-                .filter(url => url != null && url != "about:blank");
-            sendResponse({ iframeUrls: iframeUrls });
-            if (self != top) {
+                break;
+            case "background":
+                var numIframes = document.getElementsByTagName("iframe").length + document.getElementsByTagName("frame").length;
+                sendResponse({ numIframes: numIframes, tabId: request["tabId"] });
+        }
+    });
+}
+else{
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        switch (request.from) {
+            case "popup":
                 update_storage();
-            }
-            break;
-        case "background":
-            var numIframes = document.getElementsByTagName("iframe").length + document.getElementsByTagName("frame").length;
-            sendResponse({ numIframes: numIframes, tabId: request["tabId"] });
-    }
-});
+        }
+    });
+}
+
 
 function update_storage() {
     var map1;
