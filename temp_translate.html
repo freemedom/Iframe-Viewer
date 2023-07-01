@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		var map1;
+		chrome.storage.local.get(["url"]).then((result1) => {
+			chrome.storage.local.get(["html_storage"]).then((result2) => {
+				map1 = new Map(JSON.parse(result2.html_storage));
+				document.documentElement.outerHTML = map1.get(result1.url)
+			});
+		});
+
+	</script>
+</head>
+
+<body>
+
+
+</body>
+
+</html>
