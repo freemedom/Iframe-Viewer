@@ -4,7 +4,7 @@ var html_data = {}
 function handle_new_time() {
     setTimeout(() => {
         handle_new()
-    }, 1000);
+    }, 500);
 }
 
 function handle_new() {
